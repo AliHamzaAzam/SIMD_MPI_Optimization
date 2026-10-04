@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, cpSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
@@ -34,4 +35,18 @@ test('generator rejects duplicate input provenance', () => {
 test('generator rejects unsupported protocol and fractional trials', () => {
   checkMutation(root => editJson(root, 'machine.json', machine => { machine.flags = '-O0'; }));
   checkMutation(root => editJson(root, 'timings.json', rows => { rows[0].trial = 1.5; }));
+});
+test('generator rejects missing or corrupted warm-up evidence', () => {
+  for (const path of ['web/raw/64-0.stdout', 'web/raw/64-0.stderr']) {
+    checkMutation(root => writeFileSync(join(root, path), 'corrupt warmup'));
+    checkMutation(root => rmSync(join(root, path)));
+  }
+});
+test('generator validates output content even when hashes match', () => {
+  checkMutation(root => {
+    for (let trial = 0; trial <= 5; trial++) writeFileSync(join(root, `web/raw/64-${trial}.stdout`), 'Final Progressive Alignment:\n');
+    editJson(root, 'timings.json', rows => {
+      for (const row of rows.filter(row => row.length === 64)) row.stdoutSha256 = createHash('sha256').update('Final Progressive Alignment:\n').digest('hex');
+    });
+  });
 });

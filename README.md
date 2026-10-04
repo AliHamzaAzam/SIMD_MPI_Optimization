@@ -115,8 +115,8 @@ Generates:
 recorded serial benchmark, source-level explanations and the limits of the data.
 It does not claim measured MPI or SIMD acceleration.
 
-Requirements: Node.js 20.19+ or 22.12+, npm. To rerun measurements, Python 3 and an
-existing C++17 `g++` compiler are required. The benchmark capture script targets
+Requirements: Node.js 20.19+ or 22.12+, npm. The full test suite and measurement
+capture also require Python 3 and an existing C++17 `g++` compiler. The benchmark capture script targets
 Linux and reads `/proc/cpuinfo`; run it only on a Linux machine with that file
 available. The static site itself is portable and uses no production services.
 
@@ -180,3 +180,24 @@ In this cloud environment the existing module is
 `/usr/bin/chromium`. The check covers 320, 390 and 1440 pixel widths, the results
 table, navigation, readable diagram labels, page description, horizontal page
 overflow and JavaScript errors. It writes screenshots to `/tmp/c10-final-*.png`.
+
+The data generator validates all 15 timed outputs and the three excluded warm-up
+outputs. It checks output/input/source hashes, empty stderr, finite symmetric
+four-by-four distance matrices, equal alignment widths, and preservation of each
+input sequence after removing gap markers. The test suite independently computes
+the real part of the direct Fourier transform and Pearson distances for these
+fixtures, and compiles the unchanged program with `-O2` to reproduce the saved
+outputs without timing those test runs. These checks cover the recorded fixtures;
+they do not establish biological alignment accuracy or general optimality.
+
+The program prints the computed distance matrix and alignment, and the harness
+captures and validates that observable output. This prevents treating an unused
+result as evidence of work and guards against dead-code elimination of the
+measured computation. Timings use `perf_counter_ns`, divide by one billion to
+store seconds, and multiply by one thousand only for displayed milliseconds.
+
+Benchmark capture uses a temporary staging directory. Compilation, execution or
+validation failure leaves the previous `raw/` record intact. Only a fully
+validated capture replaces it. Regeneration is byte-deterministic, and the review
+round did not replace any recorded timing values. The site provides explicit empty
+and invalid-data states, a keyboard-focusable runtime table, and resize checks.
