@@ -1,0 +1,18 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';import {summarize,generate} from '../scripts/generate.mjs';
+const samples=()=>[64,256,512].flatMap(length=>[1,2,3,4,5].map(trial=>({length,trial,seconds:trial,stdoutSha256:`same-${length}`})));
+test('median and observed range are computed per dataset',()=>{const r=summarize(samples());assert.equal(r.length,3);assert.deepEqual([r[0].seconds,r[0].min,r[0].max],[3,1,5])});
+test('rejects missing samples, invalid timing, inconsistent outputs and duplicate trials',()=>{assert.throws(()=>summarize([]));assert.throws(()=>summarize(samples().slice(1)));for(const change of [{seconds:0},{seconds:NaN},{length:100},{stdoutSha256:'other'},{trial:2}]){const rows=samples();Object.assign(rows[0],change);assert.throws(()=>summarize(rows))}});
+test('data is regenerated exactly from raw measurements',()=>assert.deepEqual(generate(),JSON.parse(readFileSync(new URL('../data/results.json',import.meta.url),'utf8'))));
+test('every raw output matches its checksum and includes alignment',()=>{const rows=JSON.parse(readFileSync(new URL('../raw/timings.json',import.meta.url),'utf8'));for(const r of rows){const text=readFileSync(new URL(`../raw/${r.length}-${r.trial}.stdout`,import.meta.url));assert.equal(createHash('sha256').update(text).digest('hex'),r.stdoutSha256);assert.match(text.toString(),/Final Progressive Alignment:/)}});
+test('input and source checksums preserve provenance',()=>{const {machine}=generate();for(const input of machine.inputs)assert.equal(createHash('sha256').update(readFileSync(new URL(`../raw/input-${input.length}.fasta`,import.meta.url))).digest('hex'),input.sha256);for(const [path,hash] of Object.entries(machine.sourceSha256))assert.equal(createHash('sha256').update(readFileSync(new URL(`../../${path}`,import.meta.url))).digest('hex'),hash)});
+test('CLI regeneration is byte deterministic and preserves committed data', async () => {
+  const {spawnSync} = await import('node:child_process');
+  const {fileURLToPath} = await import('node:url');
+  const args = [fileURLToPath(new URL('../scripts/generate.mjs', import.meta.url)), fileURLToPath(new URL('../raw', import.meta.url))];
+  const first = spawnSync(process.execPath, args, {encoding: 'utf8'});
+  const second = spawnSync(process.execPath, args, {encoding: 'utf8'});
+  assert.equal(first.status, 0, first.stderr);
+  assert.equal(second.status, 0, second.stderr);
+  assert.equal(first.stdout, second.stdout);
+  assert.equal(first.stdout, readFileSync(new URL('../data/results.json', import.meta.url), 'utf8'));
+});
