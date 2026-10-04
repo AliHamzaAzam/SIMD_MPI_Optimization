@@ -1,0 +1,92 @@
+[
+  {
+    "length": 64,
+    "trial": 1,
+    "seconds": 0.002852618,
+    "stdoutSha256": "4f41e6a016ef29d4da5d6dd0d1c3b3099ae6099995259d43efbe6749e780be11"
+  },
+  {
+    "length": 64,
+    "trial": 2,
+    "seconds": 0.002968027,
+    "stdoutSha256": "4f41e6a016ef29d4da5d6dd0d1c3b3099ae6099995259d43efbe6749e780be11"
+  },
+  {
+    "length": 64,
+    "trial": 3,
+    "seconds": 0.003091691,
+    "stdoutSha256": "4f41e6a016ef29d4da5d6dd0d1c3b3099ae6099995259d43efbe6749e780be11"
+  },
+  {
+    "length": 64,
+    "trial": 4,
+    "seconds": 0.003362651,
+    "stdoutSha256": "4f41e6a016ef29d4da5d6dd0d1c3b3099ae6099995259d43efbe6749e780be11"
+  },
+  {
+    "length": 64,
+    "trial": 5,
+    "seconds": 0.002278093,
+    "stdoutSha256": "4f41e6a016ef29d4da5d6dd0d1c3b3099ae6099995259d43efbe6749e780be11"
+  },
+  {
+    "length": 256,
+    "trial": 1,
+    "seconds": 0.006603114,
+    "stdoutSha256": "609106cec702e74a7d413408098b0002583d44a192ba4eabc27354356c54e860"
+  },
+  {
+    "length": 256,
+    "trial": 2,
+    "seconds": 0.005999517,
+    "stdoutSha256": "609106cec702e74a7d413408098b0002583d44a192ba4eabc27354356c54e860"
+  },
+  {
+    "length": 256,
+    "trial": 3,
+    "seconds": 0.005381017,
+    "stdoutSha256": "609106cec702e74a7d413408098b0002583d44a192ba4eabc27354356c54e860"
+  },
+  {
+    "length": 256,
+    "trial": 4,
+    "seconds": 0.01051564,
+    "stdoutSha256": "609106cec702e74a7d413408098b0002583d44a192ba4eabc27354356c54e860"
+  },
+  {
+    "length": 256,
+    "trial": 5,
+    "seconds": 0.006021676,
+    "stdoutSha256": "609106cec702e74a7d413408098b0002583d44a192ba4eabc27354356c54e860"
+  },
+  {
+    "length": 512,
+    "trial": 1,
+    "seconds": 0.023580246,
+    "stdoutSha256": "a4549d1014e051a3ad6cd20d1dc91b7060ec59f107fac01fc3b1a9340a5a9b89"
+  },
+  {
+    "length": 512,
+    "trial": 2,
+    "seconds": 0.041311964,
+    "stdoutSha256": "a4549d1014e051a3ad6cd20d1dc91b7060ec59f107fac01fc3b1a9340a5a9b89"
+  },
+  {
+    "length": 512,
+    "trial": 3,
+    "seconds": 0.024024003,
+    "stdoutSha256": "a4549d1014e051a3ad6cd20d1dc91b7060ec59f107fac01fc3b1a9340a5a9b89"
+  },
+  {
+    "length": 512,
+    "trial": 4,
+    "seconds": 0.024845631,
+    "stdoutSha256": "a4549d1014e051a3ad6cd20d1dc91b7060ec59f107fac01fc3b1a9340a5a9b89"
+  },
+  {
+    "length": 512,
+    "trial": 5,
+    "seconds": 0.02413358,
+    "stdoutSha256": "a4549d1014e051a3ad6cd20d1dc91b7060ec59f107fac01fc3b1a9340a5a9b89"
+  }
+]

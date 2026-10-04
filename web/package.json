@@ -1,0 +1,20 @@
+{
+  "name": "optimization-results",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "npm run data && npm run typecheck && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "data": "node scripts/generate.mjs",
+    "benchmark": "python3 scripts/benchmark.py && npm run data",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "machine": {
+    "capturedAt": "2026-10-04T12:42:44Z",
+    "sourceCommit": "b3427e5d11a8a8c42c35971435852358f0e4f2d2",
+    "sourceSha256": {
+      "MPI_Optimization/src/serial.cpp": "816801fb4ae7f2e3002e94f5453fe8543158fea5394c1cf18998731775c0806f",
+      "MPI_Optimization/src/utility.h": "001b11d000d3391a75216b3ac890ab14c15a6fb5628e02ac4a2d39b59f12c820"
+    },
+    "machine": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "os": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "architecture": "x86_64",
+    "visibleCpus": 5,
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "flags": "-std=c++17 -O2",
+    "compileCommand": "g++ -std=c++17 -O2 ../MPI_Optimization/src/serial.cpp -o raw/serial-benchmark",
+    "runCommand": "raw/serial-benchmark raw/input-{length}.fasta",
+    "inputs": [
+      {
+        "length": 64,
+        "sha256": "3ca3e9123a9179899ab8cfdaf04d9f4bb7dd0154bfb8deb14716c176f0658b9a"
+      },
+      {
+        "length": 256,
+        "sha256": "7cd88971ea6a664a09c61eefb89e6faddacaf84b64c544b85c883f1fcfdc3eef"
+      },
+      {
+        "length": 512,
+        "sha256": "bf83b3681eec4f04d4c12747368af05479f92d4f864021ff4280a6b8d076cf58"
+      }
+    ],
+    "input": "4 synthetic protein sequences at each length",
+    "scope": "Whole-process wall time including process launch, FASTA I/O, FFT, distance matrix, progressive alignment and output",
+    "trials": 5,
+    "warmups": 1
+  },
+  "results": [
+    {
+      "length": 64,
+      "seconds": 0.002968027,
+      "min": 0.002278093,
+      "max": 0.003362651,
+      "samples": [
+        0.002278093,
+        0.002852618,
+        0.002968027,
+        0.003091691,
+        0.003362651
+      ]
+    },
+    {
+      "length": 256,
+      "seconds": 0.006021676,
+      "min": 0.005381017,
+      "max": 0.01051564,
+      "samples": [
+        0.005381017,
+        0.005999517,
+        0.006021676,
+        0.006603114,
+        0.01051564
+      ]
+    },
+    {
+      "length": 512,
+      "seconds": 0.02413358,
+      "min": 0.023580246,
+      "max": 0.041311964,
+      "samples": [
+        0.023580246,
+        0.024024003,
+        0.02413358,
+        0.024845631,
+        0.041311964
+      ]
+    }
+  ]
+}
